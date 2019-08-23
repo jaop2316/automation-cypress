@@ -1,5 +1,5 @@
 describe ('Login case', function(){
-    it('Visits a rollkall site', function(){
+    it('Visits Agency site', function(){
         cy.visit('https://rollkallportal-qa.azurewebsites.net/')
     })
 
@@ -15,6 +15,21 @@ describe ('Login case', function(){
 
     
     it('Load jobs page', function(){
-        cy.contains('Log In').click()
+        cy.wait(500)
+        cy.get('.container').contains('Jobs')
     })
+
+    it('Log out', function(){
+        cy.wait(3000)
+        cy.get('.navbar .dropdown.user-options').click()
+        cy
+        .get('.dropdown-menu >li')
+        .each(($el,index,$list) =>{
+             
+            if($el.text() == 'Logout'){
+                cy.get($el).click()
+            }
+        })
+    })
+
 })
