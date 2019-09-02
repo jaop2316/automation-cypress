@@ -90,5 +90,34 @@ describe ('Create a job', function(){
     })
 
 
+    it('Set a start job date', function(){
+      cy
+      .get('.form-group')
+      .each(($el, index, $list) => {
+        if ($el.find("label").text() === 'Start') {
+          cy.wrap($el).find('.rdt').click()
+          cy.wrap($el).find('.rdtTime .rdtBtn').first().click()
+          cy.get('.rdt').first().click()
+        } 
+      })
+  })
+
+  it('Set a end job date', function(){
+    cy
+    .get('.form-group')
+    .each(($el, index, $list) => {
+      if ($el.find("label").text() === 'End') {
+        cy.wrap($el).find('.rdt').click()   
+        for(let n = 0; n < 3; n ++){
+          cy.wrap($el).find('.rdtTime .rdtBtn').first().click({ multiple: true })  
+        }
+        cy.get('.rdt').first().click()
+        const todaysDate = Cypress.moment().add(1, 'days').calendar().format('MM/DD/YYYY')
+        cy.log(todaysDate)
+      } 
+    })
+})
+
+
 
 })
