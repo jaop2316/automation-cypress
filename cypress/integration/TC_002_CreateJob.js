@@ -96,7 +96,10 @@ describe ('Create a job', function(){
       .each(($el, index, $list) => {
         if ($el.find("label").text() === 'Start') {
           cy.wrap($el).find('.rdt').click()
-          cy.wrap($el).find('.rdtTime .rdtBtn').first().click()
+          for(let n = 0; n < 9; n ++){
+            cy.wrap($el).find('.rdtTime .rdtBtn').first().click({ multiple: true })  
+          }
+          cy.get('.rdtCounter .rdtCount').contains('AM').next('span').click()
           cy.get('.rdt').first().click()
         } 
       })
@@ -108,16 +111,47 @@ describe ('Create a job', function(){
     .each(($el, index, $list) => {
       if ($el.find("label").text() === 'End') {
         cy.wrap($el).find('.rdt').click()   
-        for(let n = 0; n < 3; n ++){
+        for(let n = 0; n < 11; n ++){
           cy.wrap($el).find('.rdtTime .rdtBtn').first().click({ multiple: true })  
         }
+        cy.get('.rdtCounter .rdtCount').contains('AM').next('span').click()
         cy.get('.rdt').first().click()
-        const todaysDate = Cypress.moment().add(1, 'days').calendar().format('MM/DD/YYYY')
-        cy.log(todaysDate)
       } 
     })
 })
 
+
+it('Select an agency supervisor', function(){
+
+  cy
+  .get('.form-group')
+  .each(($el, index, $list) => {
+    if ($el.find("label").text() === 'Agency Supervisor') {
+      cy.wrap($el).find('.react-select').click()
+      cy.get('.react-select__menu').contains('Agency, Zuriel').click()
+    } 
+  })
+})
+
+
+it('Save job general information', function(){
+
+  cy.get('.pb-button').contains('Continue').click()
+  
+})
+
+
+it('Add positions to the job', function(){
+
+  cy
+  .get('.form-group')
+  .each(($el, index, $list) => {
+    if ($el.find("label").text() === 'Position Name') {
+      cy.wrap($el).find('input').type('Guard')
+    } 
+  })
+  
+})
 
 
 })
