@@ -153,5 +153,45 @@ it('Add positions to the job', function(){
   
 })
 
+it('Set the job rate', function(){
+
+  cy.get('#positionRate').type(10)
+  
+})
+
+
+it('Save the position', function(){
+  cy.wait(500)
+  cy.get('.pb-button').contains('Save').click()
+  
+})
+
+// This is a job with a single position 
+
+it('Continue to the Payment details', function(){
+  cy.get('.collapse.in').find('button').contains('Continue').click()
+  
+})
+
+// Select RKPay in the Payment Details
+
+it('Continue to officer fullfillment', function(){
+  cy.get('.collapse.in').find('button').contains('Continue').click()
+  
+})
+
+// SAve officer fullfiment 
+
+it('Save officer fullfiment', function(){
+  cy.get('.collapse.in').find('button').contains('Continue').click()
+  
+})
+
+
+it('Save job', function(){
+  cy.wait(500)
+  cy.get('.pb-button').contains('Save Job').click()
+  
+})
 
 })
