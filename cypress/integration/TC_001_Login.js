@@ -1,25 +1,17 @@
 describe ('Login case', function(){
-    it('Visits Agency site', function(){
+    it('Visits Agency site and login', function(){
+        // Go to agency site
         cy.visit('https://rollkallportal-qa.azurewebsites.net/')
-    })
-
-    it('Type user credentials', function(){
+        // Type user credentials
         cy.get('[type="email"]').first().focus().type('zuriel+agency@rollkall.com')
         cy.get('[type="password"]').first().focus().type('test123')
-    })
-
-    it('Submit form', function(){
+        // Submit form 
         cy.contains('Log In').click()
-    })
-
-    
-    it('Load jobs page', function(){
+        // Load jobs page
         cy.wait(500)
         cy.get('.toast-top-right').should('be.empty')
         cy.get('.container').contains('Jobs')
-    })
-
-    it('Log out', function(){
+        // Log out 
         cy.wait(3000)
         cy.get('.navbar .dropdown.user-options').click()
         cy
@@ -31,5 +23,4 @@ describe ('Login case', function(){
             }
         })
     })
-
 })
