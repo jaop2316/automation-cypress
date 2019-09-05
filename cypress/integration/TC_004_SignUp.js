@@ -18,7 +18,9 @@ describe ('SignUp', function(){
    cy.get('label').contains('Last Name').next('input').focus().type('Noyes')
 
     // Fill Email and name field 
-    cy.get('label').contains('Email').next('input').focus().type('agencyuser0829@yopmail.com')
+    const todaysDate = Cypress.moment().format('MMDDhmmss')
+    const emailfake = 'agencyuser' + todaysDate + '@yopmail.com'
+    cy.get('label').contains('Email').next('input').focus().type(emailfake)
 
     // Fill Phone field 
     cy.get('label').contains('Phone').next('input').focus().type('972-519-5939')
