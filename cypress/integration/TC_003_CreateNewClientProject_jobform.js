@@ -79,5 +79,56 @@ describe ('Reset password', function(){
             }
           })
 
+          // Select the agency's supervisor 
+         
+          cy
+          .get('.form-horizontal .form-group')
+          .each(($el, index, $list) => {
+            if($el.find("label").text() === 'Agency Supervisor:'){
+                cy.wrap($el).find('.react-select').click()
+                cy.get('.react-select__menu').first().click()
+            }
+          })
+
+          // Select payment term
+
+          cy
+          .get('.form-horizontal .form-group')
+          .each(($el, index, $list) => {
+            if($el.find("label").text() === 'Payment Terms:'){
+                cy.wrap($el).find('.react-select').click()
+                cy.get('.react-select__menu').first().click()
+            }
+          })
+
+
+          // Add the project description
+
+          cy
+          .get('.form-horizontal .form-group')
+          .each(($el, index, $list) => {
+            if($el.find("label").text() === 'Description:'){
+                cy.wrap($el).find('textarea').type('This is a test project')
+            }
+          })
+
+
+          // Click on the Save button
+
+          cy.get('.form-horizontal .form-group').contains('Save').click()
+
+          // Select the created project
+
+          cy
+        .get('.form-group')
+        .each(($el, index, $list) => {
+          if ($el.find("label").text() === 'Project') {
+        
+            cy.wrap($el).find('.react-select').click()
+            cy.get('.react-select__menu').contains('Project 1').click()
+          } 
+        })
+      
+
     })
 })
