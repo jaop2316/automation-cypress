@@ -1,4 +1,4 @@
-describe ('Reset password', function(){
+describe ('Create a new client workflow', function(){
     it('Visits Agency site and login', function(){
         
         // Go to agency site
@@ -27,6 +27,7 @@ describe ('Reset password', function(){
         .each(($el, index, $list) => {
           if ($el.find("label").text() === 'Client') {
             cy.get('.btn').contains('+ New').click()
+            cy.get('.modal-title').should('contain','New Client')
           } 
         })
 
@@ -67,6 +68,7 @@ describe ('Reset password', function(){
           .each(($el, index, $list) => {
             if ($el.find("label").text() === 'Project') {
               cy.wrap($el).find('.btn').contains('+ New').click()
+              cy.get('.modal-title').should('contain','Add Project')
             }
           })
 
@@ -128,6 +130,21 @@ describe ('Reset password', function(){
             cy.get('.react-select__menu').contains('Project 1').click()
           } 
         })
+
+
+        // Create a location 
+
+        cy
+        .get('.form-group')
+        .each(($el, index, $list) => {
+          if ($el.find("label").text() === 'Location') {
+            cy.wrap($el).find('.btn').contains('+ New').click()
+            cy.get('.modal-title').should('contain','Add Location')
+          }
+        })
+
+
+
       
 
     })
