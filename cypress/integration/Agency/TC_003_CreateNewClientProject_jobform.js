@@ -1,4 +1,9 @@
 describe ('Create a new client workflow', function(){
+  
+  const todaysDate = Cypress.moment().format('MMDDhmmss')
+  const fakeClient = 'ClientQA' + todaysDate
+  const randomLocation = 'Place' + todaysDate
+
     it('Visits Agency site and login', function(){
         
         // Go to agency site
@@ -16,8 +21,8 @@ describe ('Create a new client workflow', function(){
 
     it('Open the create job form and new client modal', function(){
       
-        const todaysDate = Cypress.moment().format('MMDDhmmss')
-        const fakeClient = 'ClientQA' + todaysDate
+        
+        
 
         // open the create job form 
         cy.get('.btn').contains('+ New Job').click()
@@ -143,6 +148,88 @@ describe ('Create a new client workflow', function(){
           }
         })
 
+
+        // Add location Name
+        
+
+        cy
+        .get('.form-container .form-group')
+        .each(($el, index, $list) => {
+          if($el.find("label").text() === 'Location Name'){
+              cy.wrap($el).find('input').type(randomLocation)
+          }
+        })
+
+        // Add Address 
+
+        cy
+        .get('.form-container .form-group')
+        .each(($el, index, $list) => {
+          if($el.find("label").text() === 'Address'){
+              cy.wrap($el).find('input').type('3901 W 15th St')
+          }
+        })
+
+        // Fill city information
+
+        cy
+        .get('.form-container .form-group')
+        .each(($el, index, $list) => {
+          if($el.find("label").text() === 'City'){
+              cy.wrap($el).find('input').type('Plano')
+          }
+        })
+
+
+        // Select the state
+         cy
+         .get('.form-group')
+         .each(($el, index, $list) => {
+           if ($el.find("label").text() === 'State') {
+         
+             cy.wrap($el).find('.react-select').click()
+             cy.get('.react-select__menu').contains('Texas').click()
+           } 
+         })
+
+
+         // Fill the zipcode
+
+         cy
+         .get('.form-container .form-group')
+         .each(($el, index, $list) => {
+           if($el.find("label").text() === 'Zipcode'){
+               cy.wrap($el).find('input').type('75075')
+           }
+         })
+
+          // Select the location type
+          cy
+          .get('.form-group')
+          .each(($el, index, $list) => {
+            if ($el.find("label").text() === 'Location Type') {
+          
+              cy.wrap($el).find('.react-select').click()
+              cy.get('.react-select__menu').contains('Hospital').click()
+            } 
+          })
+
+          
+          // Click on the Save button
+
+          cy.get('.modal-footer').find('.pb-button').click()
+
+          // select created location
+          cy
+          .get('.form-group')
+          .each(($el, index, $list) => {
+            if ($el.find("label").text() === 'Location') {
+          
+              cy.wrap($el).find('.react-select').click()
+              cy.get('.react-select__menu').contains(randomLocation).click()
+            } 
+          })
+ 
 
 
       
