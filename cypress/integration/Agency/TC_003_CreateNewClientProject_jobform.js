@@ -1,5 +1,5 @@
 describe ('Create a new client workflow', function(){
-  
+
   const todaysDate = Cypress.moment().format('MMDDhmmss')
   const fakeClient = 'ClientQA' + todaysDate
   const randomLocation = 'Place' + todaysDate
@@ -21,9 +21,6 @@ describe ('Create a new client workflow', function(){
 
     it('Open the create job form and new client modal', function(){
       
-        
-        
-
         // open the create job form 
         cy.get('.btn').contains('+ New Job').click()
         // open the create new client modal
@@ -35,34 +32,20 @@ describe ('Create a new client workflow', function(){
             cy.get('.modal-title').should('contain','New Client')
           } 
         })
-
-
+        
         // Type client's name 
 
-        cy
-        .get('.form-group')
-        .each(($el, index, $list) => {
-          if ($el.find("label").text() === 'Client Name') {
-            
-            cy.get('#clientName').type(fakeClient)
-            cy.wait(500)
-          } 
-        })
+        cy.fillSimpleInput('.form-group','Client Name',fakeClient)
 
-        // Click 'Save' button
-        cy.get('.modal-footer').find('.pb-button').click()
-
-        cy
-        .get('.form-group')
-        .each(($el, index, $list) => {
-          if ($el.find("label").text() === 'Client') {
-        
-            cy.wrap($el).find('.react-select').click()
-            cy.get('.react-select__menu').contains(fakeClient).click()
-          } 
-        })
-        
     
+        // Click 'Save' button
+        cy.saveInfo('.modal-footer','.pb-button')
+
+
+        // Select a client from the list
+
+        cy.select('.form-group','Client',fakeClient)
+  
     })
 
     it('Create a new project', function(){
@@ -78,36 +61,16 @@ describe ('Create a new client workflow', function(){
           })
 
           // Type project's name 
-          cy
-          .get('.form-horizontal .form-group')
-          .each(($el, index, $list) => {
-            if($el.find("label").text() === 'Project Name:'){
-                cy.wrap($el).find('input').type('Project 1')
-            }
-          })
+
+          cy.fillSimpleInput('.form-horizontal .form-group','Project Name:','Project 1')
 
           // Select the agency's supervisor 
-         
-          cy
-          .get('.form-horizontal .form-group')
-          .each(($el, index, $list) => {
-            if($el.find("label").text() === 'Agency Supervisor:'){
-                cy.wrap($el).find('.react-select').click()
-                cy.get('.react-select__menu').first().click()
-            }
-          })
+
+          cy.select('.form-horizontal .form-group','Agency Supervisor:','')
 
           // Select payment term
 
-          cy
-          .get('.form-horizontal .form-group')
-          .each(($el, index, $list) => {
-            if($el.find("label").text() === 'Payment Terms:'){
-                cy.wrap($el).find('.react-select').click()
-                cy.get('.react-select__menu').first().click()
-            }
-          })
-
+          cy.select('.form-horizontal .form-group','Payment Terms:','')
 
           // Add the project description
 
@@ -122,19 +85,11 @@ describe ('Create a new client workflow', function(){
 
           // Click on the Save button
 
-          cy.get('.form-horizontal .form-group').contains('Save').click()
+          cy.saveInfo('.form-horizontal .form-group .pb-container','button')
 
           // Select the created project
 
-          cy
-        .get('.form-group')
-        .each(($el, index, $list) => {
-          if ($el.find("label").text() === 'Project') {
-        
-            cy.wrap($el).find('.react-select').click()
-            cy.get('.react-select__menu').contains('Project 1').click()
-          } 
-        })
+        cy.select('.form-group ','Project','')
 
 
         // Create a location 
@@ -150,89 +105,39 @@ describe ('Create a new client workflow', function(){
 
 
         // Add location Name
-        
-
-        cy
-        .get('.form-container .form-group')
-        .each(($el, index, $list) => {
-          if($el.find("label").text() === 'Location Name'){
-              cy.wrap($el).find('input').type(randomLocation)
-          }
-        })
+      
+        cy.fillSimpleInput('.form-container .form-group','Location Name',randomLocation)
 
         // Add Address 
 
-        cy
-        .get('.form-container .form-group')
-        .each(($el, index, $list) => {
-          if($el.find("label").text() === 'Address'){
-              cy.wrap($el).find('input').type('3901 W 15th St')
-          }
-        })
+        cy.fillSimpleInput('.form-container .form-group','Address','3901 W 15th St')
 
         // Fill city information
 
-        cy
-        .get('.form-container .form-group')
-        .each(($el, index, $list) => {
-          if($el.find("label").text() === 'City'){
-              cy.wrap($el).find('input').type('Plano')
-          }
-        })
+        cy.fillSimpleInput('.form-container .form-group','City','Plano')
 
 
         // Select the state
-         cy
-         .get('.form-group')
-         .each(($el, index, $list) => {
-           if ($el.find("label").text() === 'State') {
-         
-             cy.wrap($el).find('.react-select').click()
-             cy.get('.react-select__menu').contains('Texas').click()
-           } 
-         })
+    
+         cy.select('.form-group ','State','Texas')
 
 
          // Fill the zipcode
 
-         cy
-         .get('.form-container .form-group')
-         .each(($el, index, $list) => {
-           if($el.find("label").text() === 'Zipcode'){
-               cy.wrap($el).find('input').type('75075')
-           }
-         })
+         cy.fillSimpleInput('.form-container .form-group','Zipcode','75075')
 
           // Select the location type
-          cy
-          .get('.form-group')
-          .each(($el, index, $list) => {
-            if ($el.find("label").text() === 'Location Type') {
-          
-              cy.wrap($el).find('.react-select').click()
-              cy.get('.react-select__menu').contains('Hospital').click()
-            } 
-          })
+  
+          cy.select('.form-group ','Location Type','Hospital')
 
           
           // Click on the Save button
 
-          cy.get('.modal-footer').find('.pb-button').click()
+          cy.saveInfo('.modal-footer','.pb-button')
 
           // select created location
-          cy
-          .get('.form-group')
-          .each(($el, index, $list) => {
-            if ($el.find("label").text() === 'Location') {
-          
-              cy.wrap($el).find('.react-select').click()
-              cy.get('.react-select__menu').contains(randomLocation).click()
-            } 
-          })
- 
-
-
-      
+         
+          cy.select('.form-group ','Location',randomLocation)
 
     })
 })

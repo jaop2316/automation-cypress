@@ -19,44 +19,25 @@ describe ('Create a job', function(){
         // open the create job form 
         cy.get('.btn').contains('+ New Job').click()
         // Fill the job title 
-        cy.get('label').contains('Job Name').next('input').focus().type('Security VIP')
+
+        cy.fillSimpleInput('.form-group','Job Name','Security VIP')
+
         // Select a client from the list 
-        cy
-        .get('.form-group')
-        .each(($el, index, $list) => {
-          if ($el.find("label").text() === 'Client') {
-        
-            cy.wrap($el).find('.react-select').click()
-            cy.get('.react-select__menu').contains('Dallas Cowboys').click()
-          } 
-        })
+       
+        cy.select('.form-group','Client','Dallas Cowboys')
+
         // Select a project from the list
-        cy
-        .get('.form-group')
-        .each(($el, index, $list) => {
-          if ($el.find("label").text() === 'Project') {
-            cy.wrap($el).find('.react-select').click()
-            cy.get('.react-select__menu').contains('Dallas Cowboys Game Day').click()
-          } 
-        })
+
+        cy.select('.form-group','Project','Dallas Cowboys Game Day')
+
         // Select a location from the list
-        cy
-        .get('.form-group')
-        .each(($el, index, $list) => {
-          if ($el.find("label").text() === 'Location') {
-            cy.wrap($el).find('.react-select').click()
-            cy.get('.react-select__menu').first().click()
-          } 
-        })
+     
+        cy.select('.form-group','Location','')
+
         // Select the job type
-        cy
-        .get('.form-group')
-        .each(($el, index, $list) => {
-          if ($el.find("label").text() === 'What type of job is this?') {
-            cy.wrap($el).find('.react-select').click()
-            cy.get('.react-select__menu').contains('General Security').click()
-          } 
-        })
+      
+        cy.select('.form-group','What type of job is this?','General Security')
+
         // Type a job description
         cy
         .get('.form-group')
@@ -96,17 +77,11 @@ describe ('Create a job', function(){
 
         // Select an agency supervisor 
 
-        cy
-        .get('.form-group')
-        .each(($el, index, $list) => {
-          if ($el.find("label").text() === 'Agency Supervisor') {
-            cy.wrap($el).find('.react-select').click()
-            cy.get('.react-select__menu').contains('Agency, Zuriel').click()
-          } 
-        })
+        cy.select('.form-group','Agency Supervisor','Agency, Zuriel')
 
         // Save general information
         cy.get('.pb-button').contains('Continue').click()
+        
 
     })
 
@@ -114,13 +89,7 @@ describe ('Create a job', function(){
 it('Add one position to the job', function(){
 
   // Fill the job position name
-  cy
-  .get('.form-group')
-  .each(($el, index, $list) => {
-    if ($el.find("label").text() === 'Position Name') {
-      cy.wrap($el).find('input').type('Guard')
-    } 
-  })
+  cy.fillSimpleInput('.form-group','Position Name','Guard')
   
   // Set the job rate
   cy.get('#positionRate').type(10)
