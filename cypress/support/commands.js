@@ -24,6 +24,37 @@
 // -- This is will overwrite an existing command --
 // Cypress.Commands.overwrite("visit", (originalFn, url, options) => { ... })
 
+// Custom command to login into the portals
+
+Cypress.Commands.add('login',(userTypeFlag,emailUser,passwordUser,options ={}) => {
+      // Type user credentials
+      cy.get('[type="email"]').first().focus().type(emailUser)
+      cy.get('[type="password"]').first().focus().type(passwordUser)
+      // Submit form 
+      cy.contains('Log In').click()
+    if(userTypeFlag == 'agency' || userTypeFlag == 'admin'){
+        cy.wait(3000)
+        // Load jobs page
+        cy.url().should('include','/jobs')
+    } else{
+        // Load dashboard page
+        cy.url().should('include','/dashboard')
+    }
+})
+
+// Custom command to logout
+
+Cypress.Commands.add('logout',(userTypeFlag,email,password,options ={}) => {
+    cy.get('.navbar .dropdown.user-options').click()
+        cy
+        .get('.dropdown-menu >li')
+        .each(($el,index,$list) =>{
+             
+            if($el.text() == 'Logout'){
+                cy.get($el).click()
+            }
+        })
+})
 
 
 // Custom command to fill form's inputs

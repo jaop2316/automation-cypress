@@ -8,15 +8,7 @@ describe ('Create a new client workflow', function(){
         
         // Go to agency site
         cy.visit('https://rollkallportal-qa.azurewebsites.net/')
-        // Type user credentials
-        cy.get('[type="email"]').first().focus().type('zuriel+agency@rollkall.com')
-        cy.get('[type="password"]').first().focus().type('test123')
-        // Submit form 
-        cy.contains('Log In').click()
-        // Load jobs page
-        cy.wait(500)
-        cy.get('.toast-top-right').should('be.empty')
-        cy.get('.container').contains('Jobs')
+        cy.login('agency','zuriel+agency@rollkall.com','test123')
     })
 
     it('Open the create job form and new client modal', function(){

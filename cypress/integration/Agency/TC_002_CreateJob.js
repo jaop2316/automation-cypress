@@ -1,16 +1,10 @@
 describe ('Create a job', function(){
 
     it('Visits Agency site and Login', function(){
-        cy.visit('https://rollkallportal-qa.azurewebsites.net/')
-        cy.get('[type="email"]').first().focus().type('zuriel+agency@rollkall.com')
-        cy.get('[type="password"]').first().focus().type('test123')
-        cy.contains('Log In').click()
-        cy.wait(500)
-        cy.get('.toast-top-right').should('be.empty')
-        cy.get('.container').contains('Jobs')
-        cy.wait(500)
-        cy.get('.toast-top-right').should('be.empty')
-        cy.get('.container').contains('Jobs')
+      
+      cy.visit('https://rollkallportal-qa.azurewebsites.net/')
+       
+      cy.login('agency','zuriel+agency@rollkall.com','test123')
     })
 
  
