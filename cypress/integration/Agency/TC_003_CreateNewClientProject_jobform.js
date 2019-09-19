@@ -1,3 +1,6 @@
+/// <reference types ="cypress" />
+
+
 describe ('Create a new client workflow', function(){
 
   const todaysDate = Cypress.moment().format('MMDDhmmss')

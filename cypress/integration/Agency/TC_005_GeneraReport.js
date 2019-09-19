@@ -1,3 +1,6 @@
+/// <reference types ="cypress" />
+
+
 describe ('Generate a report', function(){
     
     it('Visits Agency site and Login', function(){

@@ -27,7 +27,8 @@
 // Custom command to login into the portals
 
 Cypress.Commands.add('login',(userTypeFlag,emailUser,passwordUser,options ={}) => {
-      // Type user credentials
+
+     // Type user credentials
       cy.get('[type="email"]').first().focus().type(emailUser)
       cy.get('[type="password"]').first().focus().type(passwordUser)
       // Submit form 
@@ -40,6 +41,10 @@ Cypress.Commands.add('login',(userTypeFlag,emailUser,passwordUser,options ={}) =
         // Load dashboard page
         cy.url().should('include','/dashboard')
     }
+
+    // wait to Alert messages dissapear       
+    cy.wait(5000)
+
 })
 
 // Custom command to logout
@@ -54,6 +59,8 @@ Cypress.Commands.add('logout',(userTypeFlag,email,password,options ={}) => {
                 cy.get($el).click()
             }
         })
+
+        cy.wait(3000)
 })
 
 

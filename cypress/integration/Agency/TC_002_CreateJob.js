@@ -1,3 +1,6 @@
+/// <reference types ="cypress" />
+
+
 describe ('Create a job', function(){
 
     it('Visits Agency site and Login', function(){

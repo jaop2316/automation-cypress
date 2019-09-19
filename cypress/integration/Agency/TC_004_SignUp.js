@@ -1,3 +1,6 @@
+/// <reference types ="cypress" />
+
+
 describe ('SignUp', function(){
 
     it('Visits Agency site', function(){
