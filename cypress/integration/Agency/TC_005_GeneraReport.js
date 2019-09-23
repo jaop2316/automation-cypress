@@ -3,21 +3,34 @@
 
 describe ('Generate a report', function(){
     
-    it('Visits Agency site and Login', function(){
-      
-        cy.visit('https://rollkallportal-qa.azurewebsites.net/')
-         
-        cy.login('agency','zuriel+agency@rollkall.com','test123')
-      })
+  beforeEach(() =>{
+
+    cy.visit('https://rollkallportal-qa.azurewebsites.net/')
+    cy.login('agency','zuriel+agency@rollkall.com','test123')
+})
+
+afterEach(function() {
+    cy.logout()
+  });
 
 
       it('Generate a report', function(){
 
-        cy.wait(1000)
-
         cy.get('.navbar-default .navbar-nav>li').contains('Reports').click()
+
+        cy.select('.form-group','Select a Report Type','Officer Overview')
+
+        cy.get('input[id="officerId_search"]').click()
+
+        cy.get('.modal-header').should('be.contain','Search Officer')
+
+        cy.get('.search-contact-modal .search-area .search-field input').type('Zuriel {enter}')
+
+        cy.get('.search-contact-modal .result-area .contact .button-container').first().click()
+
+        cy.get('.btn-success').contains('Generate Report').click()
+
+        })
 
 
       })
-
-})
