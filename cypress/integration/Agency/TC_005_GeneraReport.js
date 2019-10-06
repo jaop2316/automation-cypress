@@ -9,16 +9,16 @@ describe ('Generate a report', function(){
     cy.login('agency','zuriel+agency@rollkall.com','test123')
 })
 
-afterEach(function() {
-    cy.logout()
-  });
+//afterEach(function() {
+  //  cy.logout()
+  //});
 
 
-      it('Generate a report', function(){
+      it('Generate the officer overview report', function(){
 
         cy.get('.navbar-default .navbar-nav>li').contains('Reports').click()
 
-        cy.select('.form-group','Select a Report Type','Officer Overview')
+        cy.select('.form-group','Report Type','Officer Overview')
 
         cy.get('input[id="officerId_search"]').click()
 
@@ -28,7 +28,7 @@ afterEach(function() {
 
         cy.get('.search-contact-modal .result-area .contact .button-container').first().click()
 
-        cy.get('.btn-success').contains('Generate Report').click()
+        cy.get('.btn-primary').contains('Generate Report').click()
 
         })
 
