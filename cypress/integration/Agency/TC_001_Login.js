@@ -1,7 +1,7 @@
 /// <reference types ="cypress" />
 
 
-describe ('Login case', function(){
+describe ('Login case (main cases)', function(){
 
     beforeEach(() =>{
 
@@ -11,6 +11,8 @@ describe ('Login case', function(){
     afterEach(function() {
         cy.logout()
       });
+
+    // Main cases
 
     it('Visits Agency site and login (Agency user)', function(){
         cy.login('agency','zuriel+agency@rollkall.com','test123')  
@@ -29,7 +31,26 @@ describe ('Login case', function(){
         cy.login('coordinator','zuriel+coordinator@rollkall.com','test123')
   
     })
+})
 
 
+describe ('Login case (Variations)', function(){
+
+    beforeEach(() =>{
+        cy.visit('https://rollkallportal-qa.azurewebsites.net/')
+    })
+
+    // Variations 
+it('Incorrect user name (Agency user)', function(){
+    cy.get('[type="email"]').first().focus().type('zuriel+agency123@rollkall.com')
+    cy.get('[type="password"]').first().focus().type('test123')
+     // Submit form 
+     cy.contains('Log In').click()
+     cy.get('#toast-container').should('contain.text','Invalid email/password combination. Please try again.')
+
+  })
 
 })
+
+
+
