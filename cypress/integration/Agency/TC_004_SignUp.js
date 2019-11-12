@@ -12,53 +12,52 @@ describe ('SignUp', function(){
     cy.get('.btn').contains('Sign Up').click()
 
     // Fill the agency name field 
-    cy.get('label').contains('Agency Name').next('input').focus().type('Agency Test proposes')
+   
+    cy.get('input[name="sign-up-agency-organization-name"]').focus().type('Agency Test proposes')
 
     // Fill first name field 
-    cy.get('label').contains('First Name').next('input').focus().type('Birdie')
 
-   // Fill last name field
-   cy.get('label').contains('Last Name').next('input').focus().type('Noyes')
+    cy.get('input[name="sign-up-agency-first-name"]').focus().type('Birdie')
 
-    // Fill Email and name field 
+     // Fill last name field
+
+     cy.get('input[name="sign-up-agency-last-name"]').focus().type('Noyes')
+
+
+   // Fill Email and name field 
     const todaysDate = Cypress.moment().format('MMDDhmmss')
     const emailfake = 'agencyuser' + todaysDate + '@yopmail.com'
-    cy.get('label').contains('Email').next('input').focus().type(emailfake)
 
+    cy.get('input[name="sign-up-agency-email"]').focus().type(emailfake)
+  
     // Fill Phone field 
-    cy.get('label').contains('Phone').next('input').focus().type('972-519-5939')
+    
+    cy.get('input[name="sign-up-agency-mobile-phone"]').focus().type('972-519-5939')
 
     // Fill Address field 
-    cy.get('label').contains('Address').next('input').focus().type('2666  Wilson Avenue')
+    cy.get('input[name="sign-up-agency-address"]').focus().type('2666  Wilson Avenue')
 
     // Fill city field 
-    cy.get('label').contains('City').next('input').focus().type('Plano')
+    cy.get('input[name="sign-up-agency-city"]').focus().type('Plano')
 
     // Select a state from the list 
-    cy
-    .get('.form-group')
-    .each(($el, index, $list) => {
-      if ($el.find("label").text() === 'State') {
-    
-        cy.wrap($el).find('.react-select').click()
-        cy.get('.react-select__menu').contains('Texas').click()
-      } 
-    })
+  
+    cy.select('.form-group','State','Texas')
 
     // Fill Zip field 
-    cy.get('label').contains('Zip').next('input').focus().type('75075')
+    cy.get('input[name="sign-up-agency-zip"]').focus().type('75075')
 
 
     // Fill password field 
-    cy.get('label').contains('Password').next('input').focus().type('test123')
+    cy.get('input[name="sign-up-agency-password"]').focus().type('test123')
 
     // Fill confirm password field 
-    cy.get('label').contains('Confirm Password').next('input').focus().type('test123')
+    cy.get('input[name="sign-up-agency-confirm-password"]').focus().type('test123')
 
 
     // Check the agree terms 
 
-    cy.get('[type="checkbox"]').check() 
+    cy.get('input[name="sign-up-agency-terms-accepted"]').check() 
 
     // Click on the submit button 
 
