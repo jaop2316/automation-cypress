@@ -42,8 +42,8 @@ describe ('Login case (Variations)', function(){
 
     // Variations 
 it('Incorrect user name ', function(){
-    cy.get('[type="email"]').first().focus().type('zuriel+agency123@rollkall.com')
-    cy.get('[type="password"]').first().focus().type('test123')
+    cy.get('input[name="login-email"]').first().focus().type('zuriel+agency123@rollkall.com')
+    cy.get('input[name="login-password"]').first().focus().type('test123')
      // Submit form 
      cy.contains('Log In').click()
      cy.get('#toast-container').should('contain.text','Invalid email/password combination. Please try again.')
@@ -51,8 +51,8 @@ it('Incorrect user name ', function(){
   })
 
   it('Incorrect password', function(){
-    cy.get('[type="email"]').first().focus().type('zuriel+agency@rollkall.com')
-    cy.get('[type="password"]').first().focus().type('test')
+    cy.get('input[name="login-email"]').first().focus().type('zuriel+agency@rollkall.com')
+    cy.get('input[name="login-password"]').first().focus().type('test')
      // Submit form 
      cy.contains('Log In').click()
      cy.get('#toast-container').should('contain.text','Invalid email/password combination. Please try again.')

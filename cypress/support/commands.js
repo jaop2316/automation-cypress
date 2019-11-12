@@ -29,8 +29,8 @@
 Cypress.Commands.add('login',(userTypeFlag,emailUser,passwordUser,options ={}) => {
 
      // Type user credentials
-      cy.get('[type="email"]').first().focus().type(emailUser)
-      cy.get('[type="password"]').first().focus().type(passwordUser)
+      cy.get('input[name="login-email"]').first().focus().type(emailUser)
+      cy.get('input[name="login-password"]').first().focus().type(passwordUser)
       // Submit form 
       cy.contains('Log In').click()
     if(userTypeFlag == 'agency' || userTypeFlag == 'admin'){
