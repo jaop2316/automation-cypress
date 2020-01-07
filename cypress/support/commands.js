@@ -107,3 +107,19 @@ Cypress.Commands.add('select',(formClass,label,selectText,options ={})=>{
       } 
     })
 })
+
+
+Cypress.Commands.add('verifySession',(options ={})=>{
+
+    let pageUrl = cy.url()
+
+    cy.visit('https://rollkallportal-qa.azurewebsites.net/')
+    cy.wait(5000)
+
+    if( pageUrl == 'https://rollkallportal-qa.azurewebsites.net/jobs/list/active'){
+        cy.visit('https://rollkallportal-qa.azurewebsites.net/logout')
+        cy.wait(5000)
+    }else {
+        cy.visit('https://rollkallportal-qa.azurewebsites.net/')
+    }
+})

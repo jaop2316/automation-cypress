@@ -59,6 +59,26 @@ it('Incorrect user name ', function(){
 
   })
 
+  it ('Pending approval users', function(){
+
+    cy.get('input[name="login-email"]').first().focus().type('agencyuser111240631@yopmail.com')
+    cy.get('input[name="login-password"]').first().focus().type('test123')
+    // Submit form 
+    cy.contains('Log In').click()
+    cy.get('#toast-container').should('contain.text','Sorry, your application is pending for authorization. If you have any questions please contact support@rollkall.com.')
+
+  })
+
+  it('Pending email verification', function(){
+
+    cy.get('input[name="login-email"]').first().focus().type('agencyuser111240325@yopmail.com')
+    cy.get('input[name="login-password"]').first().focus().type('test123')
+    // Submit form 
+    cy.contains('Log In').click()
+    cy.get('#toast-container').should('contain.text','Your email has not been verified, you will not be able to log in until you do. We have resent your verification email, please check your email account.')
+
+  })
+
 
 })
 

@@ -5,7 +5,22 @@ describe ('SignUp', function(){
 
 
   beforeEach(() =>{
+
     cy.visit('https://rollkallportal-qa.azurewebsites.net/')
+
+    cy.wait(5000)
+
+    cy.clearLocalStorage('id')
+
+    //cy.getCookies().then((cookies) => {
+      //console.log('cookies', cookies);
+   // });
+
+    //cy.clearCookies()
+
+    //cy.getCookies().should('be.empty')
+
+    //cy.clearLocalStorage() 
     
     // Click on the Sign Up button 
     cy.get('.btn').contains('Sign Up').click()
