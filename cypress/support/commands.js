@@ -112,14 +112,32 @@ Cypress.Commands.add('select',(formClass,label,selectText,options ={})=>{
 Cypress.Commands.add('verifySession',(options ={})=>{
 
     cy.visit('https://rollkallportal-qa.azurewebsites.net/')
-    let pageUrl = cy.url().should('eq', 'https://rollkallportal-qa.azurewebsites.net/jobs/list/active')
     
     cy.wait(5000)
 
-    if(pageUrl){
-        cy.visit('https://rollkallportal-qa.azurewebsites.net/logout')
-        cy.wait(5000)
-    }else {
-        cy.visit('https://rollkallportal-qa.azurewebsites.net/')
-    }
+    
+
+    cy.get('input')
+    .should('have.attr', 'name').and('include', 'login-email')
+    .then(($el) => {
+        if(Cypress.dom.isVisible($el)) {
+            cy.visit('https://rollkallportal-qa.azurewebsites.net/')
+        } else{
+            cy.visit('https://rollkallportal-qa.azurewebsites.net/logout')
+            cy.wait(5000)
+        }
+        //cy.log(isVisibleInput)
+        //isVisibleInput = $el
+        
+        
+      })
+
+     
+
+    //if(isVisibleInput){
+        //cy.visit('https://rollkallportal-qa.azurewebsites.net/')
+    //}else {
+        //cy.visit('https://rollkallportal-qa.azurewebsites.net/logout')
+        //cy.wait(5000)
+    //}
 })
