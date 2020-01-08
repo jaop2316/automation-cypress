@@ -12,8 +12,6 @@ describe ('Create a job', function(){
 
    it('Create a single position job', function(){
 
-
-    //cy.visit('https://rollkallportal-qa.azurewebsites.net/')
     cy.login('agency','zuriel+agency@rollkall.com','test123')
     
 

@@ -115,29 +115,14 @@ Cypress.Commands.add('verifySession',(options ={})=>{
     
     cy.wait(5000)
 
-    
+    let rollkallURL = null
 
-    cy.get('input')
-    .should('have.attr', 'name').and('include', 'login-email')
-    .then(($el) => {
-        if(Cypress.dom.isVisible($el)) {
-            cy.visit('https://rollkallportal-qa.azurewebsites.net/')
-        } else{
+    cy.url().then(url => {
+        rollkallURL = url;
+        cy.log(rollkallURL)
+
+        if(rollkallURL != 'https://rollkallportal-qa.azurewebsites.net/login'){
             cy.visit('https://rollkallportal-qa.azurewebsites.net/logout')
-            cy.wait(5000)
         }
-        //cy.log(isVisibleInput)
-        //isVisibleInput = $el
-        
-        
-      })
-
-     
-
-    //if(isVisibleInput){
-        //cy.visit('https://rollkallportal-qa.azurewebsites.net/')
-    //}else {
-        //cy.visit('https://rollkallportal-qa.azurewebsites.net/logout')
-        //cy.wait(5000)
-    //}
+    })
 })
