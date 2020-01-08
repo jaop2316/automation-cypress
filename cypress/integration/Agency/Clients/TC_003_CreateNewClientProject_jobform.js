@@ -7,15 +7,16 @@ describe ('Create a new client workflow', function(){
   const fakeClient = 'ClientQA' + todaysDate
   const randomLocation = 'Place' + todaysDate
 
-    it('Visits Agency site and login', function(){
-        
-        // Go to agency site
-        cy.visit('https://rollkallportal-qa.azurewebsites.net/')
-        cy.login('agency','zuriel+agency@rollkall.com','test123')
-    })
+  beforeEach(() =>{
+    cy.visit('https://rollkallportal-qa.azurewebsites.net/')
+    cy.verifySession()
+  })
 
-    it('Open the create job form and new client modal', function(){
-      
+    it('Create clients and projects using the job create form', function(){
+  
+        // Log into the portal
+        cy.login('agency','zuriel+agency@rollkall.com','test123')
+
         // open the create job form 
         cy.get('.btn').contains('+ New Job').click()
         // open the create new client modal
@@ -40,99 +41,98 @@ describe ('Create a new client workflow', function(){
         // Select a client from the list
 
         cy.select('.form-group','Client',fakeClient)
-  
-    })
-
-    it('Create a new project', function(){
-
-          // open the create new project modal
-          cy
-          .get('.form-group')
-          .each(($el, index, $list) => {
-            if ($el.find("label").text() === 'Project') {
-              cy.wrap($el).find('.btn').contains('+ New').click()
-              cy.get('.modal-title').should('contain','Add Project')
-            }
-          })
-
-          // Type project's name 
-
-          cy.fillSimpleInput('.form-horizontal .form-group','Project Name:','Project 1')
-
-          // Select the agency's supervisor 
-
-          cy.select('.form-horizontal .form-group','Agency Supervisor:','')
-
-          // Select payment term
-
-          cy.select('.form-horizontal .form-group','Payment Terms:','')
-
-          // Add the project description
-
-          cy
-          .get('.form-horizontal .form-group')
-          .each(($el, index, $list) => {
-            if($el.find("label").text() === 'Description:'){
-                cy.wrap($el).find('textarea').type('This is a test project')
-            }
-          })
 
 
-          // Click on the Save button
+        // Create a project 
 
-          cy.saveInfo('.form-horizontal .form-group .pb-container','button')
+         // open the create new project modal
+         cy
+         .get('.form-group')
+         .each(($el, index, $list) => {
+           if ($el.find("label").text() === 'Project') {
+             cy.wrap($el).find('.btn').contains('+ New').click()
+             cy.get('.modal-title').should('contain','Add Project')
+           }
+         })
 
-          // Select the created project
+         // Type project's name 
 
-        cy.select('.form-group ','Project','')
+         cy.fillSimpleInput('.form-horizontal .form-group','Project Name:','Project 1')
 
+         // Select the agency's supervisor 
 
-        // Create a location 
+         cy.select('.form-horizontal .form-group','Agency Supervisor:','')
 
-        cy
-        .get('.form-group')
-        .each(($el, index, $list) => {
-          if ($el.find("label").text() === 'Location') {
-            cy.wrap($el).find('.btn').contains('+ New').click()
-            cy.get('.modal-title').should('contain','Add Location')
-          }
-        })
+         // Select payment term
 
+         cy.select('.form-horizontal .form-group','Payment Terms:','')
 
-        // Add location Name
-      
-        cy.fillSimpleInput('.form-container .form-group','Location Name',randomLocation)
+         // Add the project description
 
-        // Add Address 
-
-        cy.fillSimpleInput('.form-container .form-group','Address','3901 W 15th St')
-
-        // Fill city information
-
-        cy.fillSimpleInput('.form-container .form-group','City','Plano')
-
-
-        // Select the state
-    
-         cy.select('.form-group ','State','Texas')
+         cy
+         .get('.form-horizontal .form-group')
+         .each(($el, index, $list) => {
+           if($el.find("label").text() === 'Description:'){
+               cy.wrap($el).find('textarea').type('This is a test project')
+           }
+         })
 
 
-         // Fill the zipcode
+         // Click on the Save button
 
-         cy.fillSimpleInput('.form-container .form-group','Zipcode','75075')
+         cy.saveInfo('.form-horizontal .form-group .pb-container','button')
 
-          // Select the location type
-  
-          cy.select('.form-group ','Location Type','Hospital')
+         // Select the created project
 
-          
-          // Click on the Save button
+       cy.select('.form-group ','Project','')
 
-          cy.saveInfo('.modal-footer','.pb-button')
 
-          // select created location
+       // Create a location 
+
+       cy
+       .get('.form-group')
+       .each(($el, index, $list) => {
+         if ($el.find("label").text() === 'Location') {
+           cy.wrap($el).find('.btn').contains('+ New').click()
+           cy.get('.modal-title').should('contain','Add Location')
+         }
+       })
+
+
+       // Add location Name
+     
+       cy.fillSimpleInput('.form-container .form-group','Location Name',randomLocation)
+
+       // Add Address 
+
+       cy.fillSimpleInput('.form-container .form-group','Address','3901 W 15th St')
+
+       // Fill city information
+
+       cy.fillSimpleInput('.form-container .form-group','City','Plano')
+
+
+       // Select the state
+   
+        cy.select('.form-group ','State','Texas')
+
+
+        // Fill the zipcode
+
+        cy.fillSimpleInput('.form-container .form-group','Zipcode','75075')
+
+         // Select the location type
+ 
+         cy.select('.form-group ','Location Type','Hospital')
+
          
-          cy.select('.form-group ','Location',randomLocation)
+         // Click on the Save button
+
+         cy.saveInfo('.modal-footer','.pb-button')
+
+         // select created location
+        
+         cy.select('.form-group ','Location',randomLocation)
 
     })
 })

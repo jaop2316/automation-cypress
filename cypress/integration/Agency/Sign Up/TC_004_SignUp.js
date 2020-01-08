@@ -5,11 +5,8 @@ describe ('SignUp', function(){
 
 
   beforeEach(() =>{
-
-    //cy.visit('https://rollkallportal-qa.azurewebsites.net/')
-
+    cy.visit('https://rollkallportal-qa.azurewebsites.net/')
     cy.verifySession()
-
     // Click on the Sign Up button 
     cy.get('.btn').contains('Sign Up').click()
 
@@ -85,6 +82,7 @@ describe ('Sign Up case (Variations)', function(){
 
   beforeEach(() =>{
     cy.visit('https://rollkallportal-qa.azurewebsites.net/')
+    cy.verifySession()
     
     // Click on the Sign Up button 
     cy.get('.btn').contains('Sign Up').click()

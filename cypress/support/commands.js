@@ -110,9 +110,7 @@ Cypress.Commands.add('select',(formClass,label,selectText,options ={})=>{
 
 
 Cypress.Commands.add('verifySession',(options ={})=>{
-
-    cy.visit('https://rollkallportal-qa.azurewebsites.net/')
-    
+     
     cy.wait(5000)
 
     let rollkallURL = null

@@ -3,6 +3,7 @@
 describe ('Create a job', function(){
 
   beforeEach(() =>{
+    cy.visit('https://rollkallportal-qa.azurewebsites.net/')
     cy.verifySession()
   })
 

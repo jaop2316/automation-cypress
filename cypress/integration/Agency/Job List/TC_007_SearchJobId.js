@@ -4,6 +4,7 @@ describe ('Search Job Id', function(){
 
     beforeEach(() =>{
         cy.visit('https://rollkallportal-qa.azurewebsites.net/')
+        cy.verifySession()
         cy.login('agency','zuriel+agency@rollkall.com','test123')
     })
 
