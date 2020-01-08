@@ -24,8 +24,9 @@ describe ('Search Job Id', function(){
     })
 
     it('Search a non existent job', function(){
-        cy.get('input[name="search-field"]').type('1234').type('{enter}')
-        cy.get('#toast-container').should('contain.text','JobEvent with id 1234 was not found')
+        cy.get('input[name="search-field"]').type('12345').type('{enter}')
+        cy.wait(5000)
+        cy.get('.toast-error').should('have.length',1)
         
     })
 
