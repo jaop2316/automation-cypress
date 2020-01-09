@@ -46,7 +46,7 @@ it('Incorrect user name ', function(){
     cy.get('input[name="login-password"]').first().focus().type('test123')
      // Submit form 
      cy.contains('Log In').click()
-     cy.get('#toast-container').should('contain.text','Invalid email/password combination. Please try again.')
+     cy.get('.toast-error').should('have.length',1).and('contain.text','Invalid email/password combination. Please try again.')
 
   })
 
@@ -55,7 +55,7 @@ it('Incorrect user name ', function(){
     cy.get('input[name="login-password"]').first().focus().type('test')
      // Submit form 
      cy.contains('Log In').click()
-     cy.get('#toast-container').should('contain.text','Invalid email/password combination. Please try again.')
+     cy.get('.toast-error').should('have.length',1).and('contain.text','Invalid email/password combination. Please try again.')
 
   })
 
@@ -65,7 +65,7 @@ it('Incorrect user name ', function(){
     cy.get('input[name="login-password"]').first().focus().type('test123')
     // Submit form 
     cy.contains('Log In').click()
-    cy.get('#toast-container').should('contain.text','Sorry, your application is pending for authorization. If you have any questions please contact support@rollkall.com.')
+    cy.get('.toast-error').should('have.length',1).and('contain.text','Sorry, your application is pending for authorization. If you have any questions please contact support@rollkall.com.')
 
   })
 
@@ -75,7 +75,7 @@ it('Incorrect user name ', function(){
     cy.get('input[name="login-password"]').first().focus().type('test123')
     // Submit form 
     cy.contains('Log In').click()
-    cy.get('#toast-container').should('contain.text','Your email has not been verified, you will not be able to log in until you do. We have resent your verification email, please check your email account.')
+    cy.get('.toast-error').should('have.length',1).and('contain.text','Your email has not been verified, you will not be able to log in until you do. We have resent your verification email, please check your email account.')
 
   })
 
