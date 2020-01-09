@@ -3,6 +3,8 @@
 
 describe ('SignUp', function(){
 
+  const todaysDate = Cypress.moment().format('MMDDhmmss')
+  const emailfake = 'user' + todaysDate + '@yopmail.com'
 
   beforeEach(() =>{
     cy.visit('https://rollkallportal-qa.azurewebsites.net/')
@@ -28,8 +30,8 @@ describe ('SignUp', function(){
 
 
    // Fill Email and name field 
-    const todaysDate = Cypress.moment().format('MMDDhmmss')
-    const emailfake = 'agencyuser' + todaysDate + '@yopmail.com'
+    
+    
 
     cy.get('input[name="sign-up-agency-email"]').focus().type(emailfake)
   
@@ -67,10 +69,65 @@ describe ('SignUp', function(){
     cy.contains('Submit').click()
 
 
-    // Variations
+    })
 
-    //cy.get('a').contains('Click Here').click()  LEA workflow
-    //cy.url().should('include','signup-lea')
+    it.only('Sign Up (LEA user)', function(){
+
+      // Go to the sign up page 
+
+      cy.get('a[id="lea-signup-button"]').click()
+
+      // Fill personal information 
+
+      // Add First name 
+
+      cy.get('input[name="firstName"]').focus().type('Robyn')
+
+      // Add last name 
+
+      cy.get('input[name="LastName"]').focus().type('Lamb')
+
+      // Add email
+
+      cy.get('input[name="Email"]').focus().type(emailfake)
+
+      // Add phone number
+
+      cy.get('input[name="MobilePhone"]').focus().type('972-519-5939')
+
+      // Password and Verify password 
+
+      cy.get('input[name="Password"]').focus().type('j3ss1c42316')
+
+      cy.get('input[name="Password_confirmation"]').focus().type('j3ss1c42316')
+
+      // Fill title field
+
+      cy.get('input[name="Title"]').focus().type('Mr')
+
+      cy.wait(1000)
+
+      // Save personal information
+
+      cy.get('.pb-button').contains('Continue').click()
+
+      // Fill Dpto info 
+
+      cy.wait(5000)
+
+      cy.select('.form-group','State','Texas')
+
+      // County
+
+      cy.wait(5000)
+
+      cy.select('.form-group','County','Collin')
+
+      // Department
+
+      cy.wait(5000)
+
+      cy.select('.form-group','Department','Plano Police Dept')
 
 
     })

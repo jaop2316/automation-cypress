@@ -38,6 +38,7 @@ describe ('Login case (Variations)', function(){
 
     beforeEach(() =>{
         cy.visit('https://rollkallportal-qa.azurewebsites.net/')
+        cy.verifySession()
     })
 
     // Variations 
